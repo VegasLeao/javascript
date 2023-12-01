@@ -28,7 +28,7 @@ let notas = [
 
 // carregar os dados do array na tabela
 window.onload = (event) => {
-    let tbody = document.querySelector("#myTable");
+    let tbody = document.querySelector("#tBody");
 alunos.forEach((aluno, index) => {
     let tr = document.createElement("tr");
 
@@ -45,7 +45,7 @@ alunos.forEach((aluno, index) => {
     tdEmail.textContent = aluno.email;
     tdTelefone.textContent = aluno.telefone;
     tdProfissao.textContent = aluno.profissao;
-    tdBotao.innerHTML = `<button class="btn-remover" onclick="remover(this)">Remover</button>`
+    tdBotao.innerHTML = `<button class="btn btn-danger" onclick="remover(this)">Remover</button>`
 
     tr.appendChild(tdCod);
     tr.appendChild(tdNome);
@@ -58,6 +58,8 @@ alunos.forEach((aluno, index) => {
     tbody.appendChild(tr); 
 
 });
+
+initPieChart();
 
 }
 
@@ -94,7 +96,7 @@ function adicionar () {
     row.id = tablesize;
 
     // Criando o código do botão para remover a linha
-    let btnCode = `<button class="btn-remover" onclick="remover(this)">Remover</button>`;
+    let btnCode = `<button class="btn btn-danger" onclick="remover(this)">Remover</button>`;
 
     //Preenchendo as células da linha
     col1.innerHTML = tablesize;
@@ -110,7 +112,64 @@ function adicionar () {
     document.getElementById(`telefone`).value = " ";
     document.getElementById(`profissao`).value = " ";
 
+
+
     //Para não recarregar a página
     return false
     
 }
+
+const initPieChart = () => {
+    const ctx = document.getElementById("myChart");
+    const data = {
+        labels: ['Frontend', 'Backend', 'Fullstack','Mobile'],
+        datasets: [
+            {
+                label: 'Quantidade',
+                data: [10, 20, 50, 20],
+                backgroundColor:  ['pink', 'lightblue', 'lightgreen', 'orange'],
+                hoverOffset: 4
+            }
+        ]
+    }
+    const pieChart = new Chart(
+        ctx,
+        {
+            type: 'pie',
+            data: data
+        }
+    );
+};
+
+const initPolarAreaChart = () => {
+    removerChart();
+    //1° passo: pegar o elemento #myChart
+    const ctx = document.getElementById('myChart');
+
+    //2° passo: definir os dados do grafico
+    const data = {
+        labels: ['Frontend', 'Backend', 'Fullstack','Mobile'],
+        datasets: [{
+            label: 'Quatindade',
+            data: [11,15,7,3],
+            backgroundColor: ['pink', 'lightblue', 'lightgreen', 'orange'],
+        }]
+    }
+const polarAreaChart = new Chart(
+    ctx,
+    {
+        type:'polarArea',
+        data: data
+    }
+);
+
+};
+
+const removerChart = () => {
+    const divChart = document.querySelector('.chart');
+    document.getElementById("myChart").remove();
+    const myChart = document.createElement("canvas");
+    myChart.id = "myChart";
+    divChart.appendChild(myChart);
+
+};
