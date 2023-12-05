@@ -5,7 +5,7 @@ const calcularImc = () => {
     const peso = document.getElementById("peso").value;
     const resultado = document.getElementById("resultado");
     if(nome !== '' && peso !== '' && altura !== ''){
-        const imc = (peso/(altura*altura))
+        const imc = (peso/(altura*altura)).toFixed(2);
         //comando para exibir no console f12
         console.log('altura: ', altura);
 
@@ -37,8 +37,11 @@ const calcularImc = () => {
         resultado.textContent = 
         'preencha todos os campos';
     }
+
+    limparCampos();
     
 };
+
 const limparCampos = () => {
     const nome = 
         document.getElementById("nome").value = null;
